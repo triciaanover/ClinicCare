@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ClinicCare - Integrated Clinic Patient Management System</title>
+    <!-- Google Fonts & Updated Clean Chart.js CDN -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- ==================== AUTHENTICATION MODULE ==================== -->
+    <div id="auth-screen" class="auth-container">
+        <!-- Left Banner Graphic Section -->
+        <div class="auth-banner">
+            <div class="auth-brand">
+                <span>🩺</span> ClinicCare
+            </div>
+            <div class="auth-hero-content">
+                <div class="hero-graphic-card">
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                        <span style="font-weight:600; font-size:0.9rem;">Patient Record Active</span>
+                        <span style="font-size:0.75rem; color:var(--primary-600); background:#e0f2fe; padding:2px 8px; border-radius:10px;">Connected</span>
+                    </div>
+                    <svg viewBox="0 0 200 40" class="pulse-wave">
+                        <path d="M0,20 L60,20 L70,5 L80,35 L90,10 L100,25 L110,20 L200,20" />
+                    </svg>
+                </div>
+                <h1 class="auth-hero-title">Simple. Organized. Patient-Centered.</h1>
+                <p class="auth-hero-sub">One thoughtful workspace for patient records, consultations, services, and billing.</p>
+                <div class="auth-features">
+                    <span>✓ Secure records</span>
+                    <span>✓ Connected workflows</span>
+                </div>
+            </div>
+            <div style="font-size:0.75rem; color:var(--text-muted);">
+                ClinicCare - Integrated Clinic Patient Management System
+            </div>
+        </div>
+
+        <!-- Right Form Switcher Section -->
+        <div class="auth-form-wrapper">
+            <!-- 1. LOGIN VIEW -->
+            <div id="auth-login-view" class="auth-card auth-view active">
+                <h2 class="auth-title">Welcome Back!</h2>
+                <p class="auth-subtitle">Log in to your ClinicCare account.</p>
+                
+                <form id="login-form">
+                    <div class="form-group">
+                        <label class="form-label">Email / Username</label>
+                        <input type="text" id="login-email" class="form-control" placeholder="Enter your email or username" value="sarah.collins@cliniccare.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Password</label>
+                        <input type="password" id="login-password" class="form-control" placeholder="Enter your password" value="••••••••" required>
+                    </div>
+                    <div class="form-actions">
+                        <label style="display:flex; align-items:center; gap:6px;">
+                            <input type="checkbox" checked> Remember me
+                        </label>
+                        <a class="link-btn" id="btn-to-forgot">Forgot Password?</a>
+                    </div>
+                    <button type="submit" class="btn-block">Log In</button>
+                </form>
+
+                <div class="auth-footer">
+                    Don't have an account? <a class="link-btn" id="btn-to-signup">Sign up</a>
+                </div>
+            </div>
+
+            <!-- 2. SIGN UP VIEW -->
+            <div id="auth-signup-view" class="auth-card auth-view">
+                <h2 class="auth-title">Create Your Account</h2>
+                <p class="auth-subtitle">Start managing your clinic information efficiently.</p>
+                
+                <form id="signup-form">
+                    <div class="form-group">
+                        <label class="form-label">Full Name</label>
+                        <input type="text" id="signup-fullname" class="form-control" placeholder="Your full name" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Email Address</label>
+                        <input type="email" id="signup-email" class="form-control" placeholder="name@clinic.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Username</label>
+                        <input type="text" id="signup-username" class="form-control" placeholder="Choose a username" required>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Password</label>
+                            <input type="password" class="form-control" placeholder="Create password" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Confirm Password</label>
+                            <input type="password" class="form-control" placeholder="Repeat password" required>
+                        </div>
+                    </div>
+                    <div style="font-size:0.8rem; color:var(--text-muted); margin-bottom:16px;">
+                        <input type="checkbox" required> I agree to the <a class="link-btn">Terms and Conditions</a>
+                    </div>
+                    <button type="submit" class="btn-block">Create Account</button>
+                </form>
+
+                <div class="auth-footer">
+                    Already have an account? <a class="link-btn" id="btn-to-login-from-signup">Log in</a>
+                </div>
+            </div>
+
+            <!-- 3. FORGOT PASSWORD VIEW -->
+            <div id="auth-forgot-view" class="auth-card auth-view">
+                <h2 class="auth-title">Forgot Password?</h2>
+                <p class="auth-subtitle">Enter your registered email address to receive a password reset code.</p>
+                
+                <form id="forgot-form">
+                    <div class="form-group">
+                        <label class="form-label">Email Address</label>
+                        <input type="email" class="form-control" placeholder="name@clinic.com" required>
+                    </div>
+                    <button type="submit" class="btn-block" style="margin-bottom:12px;">Send Reset Code</button>
+                </form>
+                <div style="text-align:center;">
+                    <a class="link-btn" id="btn-to-login-from-forgot">← Back to Log In</a>
+                </div>
+            </div>
+
+            <!-- 4. RESET CODE SENT VIEW -->
+            <div id="auth-code-view" class="auth-card auth-view">
+                <h2 class="auth-title">Check your inbox</h2>
+                <p class="auth-subtitle">We've sent a 6-digit reset code to your email.</p>
+                <form id="code-form">
+                    <div class="form-group">
+                        <label class="form-label">Reset Code</label>
+                        <input type="text" class="form-control" placeholder="Enter 6-digit code" maxlength="6" required>
+                    </div>
+                    <button type="submit" class="btn-block" style="margin-bottom:12px;">Verify Code</button>
+                </form>
+                <div style="text-align:center;">
+                    <a class="link-btn" id="btn-to-login-from-code">← Back to Log In</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- ==================== MAIN DASHBOARD APP ==================== -->
+    <div id="app-screen" class="app-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="sidebar-brand">
+                <span>🩺</span> ClinicCare
+            </div>
+            <nav class="sidebar-nav">
+                <a class="nav-item active" data-page="dashboard">📊 Dashboard</a>
+                <a class="nav-item" data-page="patients">👥 Patients</a>
+                <a class="nav-item" data-page="consultations">🩺 Consultations</a>
+                <a class="nav-item" data-page="services">💊 Medical Services</a>
+                <a class="nav-item" data-page="billing">💳 Billing</a>
+                <a class="nav-item" data-page="reports">📈 Reports</a>
+                <a class="nav-item" data-page="settings">⚙️ Settings</a>
+            </nav>
+            <div class="sidebar-footer">
+                <a class="nav-item" id="btn-logout" style="color:var(--danger-text);">🚪 Logout</a>
+            </div>
+        </aside>
+
+        <!-- Main Workspace -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="top-header">
+                <div class="header-title">
+                    <h1 id="page-title">Dashboard</h1>
+                </div>
+                <div class="header-user">
+                    <span style="font-size:0.85rem; color:var(--text-muted);">Sat, 03 Oct 2026</span>
+                    <div class="user-profile" id="user-profile-btn">
+                        <div class="avatar" id="header-avatar">AA</div>
+                        <div class="user-meta">
+                            <span class="user-name" id="header-user-name">Angelene Anover</span>
+                            <span class="user-role">Clinic Administrator</span>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Dynamic Views Container -->
+            <div class="content-body">
+                
+                <!-- 1. DASHBOARD VIEW -->
+                <div id="view-dashboard" class="view-section active">
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <h3>Total Patients</h3>
+                            <p class="stat-value">248</p>
+                            <span class="stat-trend" style="color:var(--success-text);">+32 new this month</span>
+                        </div>
+                        <div class="stat-card">
+                            <h3>Today's Consultations</h3>
+                            <p class="stat-value">18</p>
+                            <span class="stat-trend">4 pending review</span>
+                        </div>
+                        <div class="stat-card">
+                            <h3>Monthly Revenue</h3>
+                            <p class="stat-value">$8,400</p>
+                            <span class="stat-trend" style="color:var(--success-text);">28 invoices processed</span>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h3 style="margin-bottom:16px;">Recent Patient Appointments</h3>
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Patient Name</th>
+                                    <th>Patient ID</th>
+                                    <th>Consultation Type</th>
+                                    <th>Date/Time</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Maria Santos</td>
+                                    <td>PT-00248</td>
+                                    <td>General Checkup</td>
+                                    <td>03 Oct 2026, 09:00 AM</td>
+                                    <td><span class="badge badge-success">Completed</span></td>
+                                </tr>
+                                <tr>
+                                    <td>John Santos</td>
+                                    <td>PT-0248</td>
+                                    <td>Follow-up Visit</td>
+                                    <td>03 Oct 2026, 10:30 AM</td>
+                                    <td><span class="badge badge-warning">In Progress</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- 2. PATIENTS MODULE VIEW -->
+                <div id="view-patients" class="view-section">
+                    <div style="background:#fff; border:1px solid var(--border-color); border-radius:12px; padding:20px; margin-bottom:20px;">
+                        <div style="display:flex; gap:16px; align-items:center;">
+                            <div class="avatar" style="width:50px; height:50px; font-size:1.2rem;">MS</div>
+                            <div>
+                                <h2 style="font-size:1.2rem;">Maria Santos <span class="badge badge-success">Active</span></h2>
+                                <p style="font-size:0.85rem; color:var(--text-muted);">PT-00248 • Female • 46 years • Blood Type: O positive (O+)</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="sub-nav">
+                        <a class="sub-nav-item active" data-target="p-overview">Overview</a>
+                        <a class="sub-nav-item" data-target="p-history">Medical History</a>
+                        <a class="sub-nav-item" data-target="p-consultations">Consultations</a>
+                        <a class="sub-nav-item" data-target="p-documents">Documents</a>
+                    </div>
+
+                    <!-- Patient Sub Tab Views -->
+                    <div id="p-overview" class="patient-sub-view" style="display:block;">
+                        <div class="card">
+                            <h3>Clinical Summary</h3>
+                            <p style="margin-top:10px; color:var(--text-muted); font-size:0.9rem;">
+                                Patient diagnosed with Type 2 diabetes mellitus (Jun 2021) and Essential hypertension (Mar 2019). Regular checkups maintained.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div id="p-history" class="patient-sub-view" style="display:none;">
+                        <div class="card">
+                            <h3>Active Conditions</h3>
+                            <ul style="padding-left:20px; margin-top:10px; font-size:0.9rem;">
+                                <li>Type 2 diabetes mellitus (Controlled)</li>
+                                <li>Essential hypertension (Controlled)</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div id="p-consultations" class="patient-sub-view" style="display:none;">
+                        <div class="card">
+                            <h3>Consultation Records</h3>
+                            <p style="font-size:0.9rem; color:var(--text-muted); margin-top:8px;">No recent consultation logs recorded today.</p>
+                        </div>
+                    </div>
+
+                    <div id="p-documents" class="patient-sub-view" style="display:none;">
+                        <div class="card">
+                            <h3>Patient Uploaded Documents</h3>
+                            <p style="font-size:0.9rem; color:var(--text-muted); margin-top:8px;">No files uploaded yet.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3. MEDICAL SERVICES VIEW -->
+                <div id="view-services" class="view-section">
+                    <div class="card">
+                        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+                            <h3>Medical Services Catalog</h3>
+                            <button class="btn-primary" id="btn-add-service">+ Add Service</button>
+                        </div>
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Service Name</th>
+                                    <th>Description</th>
+                                    <th>Price</th>
+                                    <th>Availability</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>General Consultation</td>
+                                    <td>Assessment and medical advice</td>
+                                    <td>$500.00</td>
+                                    <td><span class="badge badge-success">Available</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Medical Certificate</td>
+                                    <td>Certificate issued after assessment</td>
+                                    <td>$200.00</td>
+                                    <td><span class="badge badge-success">Available</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- 4. BILLING VIEW -->
+                <div id="view-billing" class="view-section">
+                    <div class="card">
+                        <h3>Billing & Invoices</h3>
+                        <p style="margin-top:8px; color:var(--text-muted); font-size:0.9rem;">Track clinic billing and outstanding balances.</p>
+                    </div>
+                </div>
+
+                <!-- 5. REPORTS VIEW -->
+                <div id="view-reports" class="view-section">
+                    <div class="card">
+                        <h3>Reports & Analytics</h3>
+                        <p style="margin-top:8px; color:var(--text-muted); font-size:0.9rem;">Overview of clinic performance and statistics.</p>
+                    </div>
+                </div>
+
+                <!-- 6. SETTINGS VIEW -->
+                <div id="view-settings" class="view-section">
+                    <div class="card">
+                        <h2 style="margin-bottom:20px; font-size:1.1rem;">Settings</h2>
+                        <div class="settings-grid">
+                            <div class="settings-menu">
+                                <div class="settings-menu-item active" data-target="s-profile">Profile Information</div>
+                                <div class="settings-menu-item" data-target="s-password">Change Password</div>
+                                <div class="settings-menu-item" data-target="s-notifications">Notifications</div>
+                            </div>
+                            <div class="settings-content">
+                                <div id="s-profile" class="settings-tab-view" style="display:block;">
+                                    <h3 style="margin-bottom:12px;">Profile Information</h3>
+                                    <div class="form-group">
+                                        <label class="form-label">Full Name</label>
+                                        <input type="text" id="setting-fullname" class="form-control" value="Angelene Samson Anover">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Email Address</label>
+                                        <input type="email" class="form-control" value="anoverangelene09@gmail.com">
+                                    </div>
+                                    <button class="btn-primary" id="btn-save-profile">Save Changes</button>
+                                </div>
+                                <div id="s-password" class="settings-tab-view" style="display:none;">
+                                    <h3 style="margin-bottom:12px;">Change Password</h3>
+                                    <div class="form-group">
+                                        <label class="form-label">Current Password</label>
+                                        <input type="password" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">New Password</label>
+                                        <input type="password" class="form-control">
+                                    </div>
+                                    <button class="btn-primary" id="btn-update-password">Update Password</button>
+                                </div>
+                                <div id="s-notifications" class="settings-tab-view" style="display:none;">
+                                    <h3 style="margin-bottom:12px;">Notifications</h3>
+                                    <label style="display:flex; align-items:center; gap:8px;">
+                                        <input type="checkbox" checked> Email notifications for new appointments
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast">Action completed successfully</div>
+
+    <script src="app.js"></script>
+</body>
+</html>
